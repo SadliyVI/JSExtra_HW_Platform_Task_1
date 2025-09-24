@@ -7,7 +7,7 @@ module.exports = {
         filename: 'index.js', // имя файла с результатами сборки (должно совпадать с entry point в шаге 1)
         library: 'JSExtra_HW_Platform_Task_1', // название нашей библиотеки
         libraryTarget: 'umd', // UMD (Universal Module Definition https://github.com/umdjs/umd) - шаблон, который позволяет использовать RequireJS и браузер
-        // libraryExport: 'default', // экспортируется имя default
+        libraryExport: 'default', // экспортируется имя default
         globalObject: 'this', // что принимать за глобальный объект, иначе сгенерируется window, а его, как вы знаете, на платформе Node.js нет
     },
     module: {
@@ -16,7 +16,17 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            [
+                                '@babel/preset-env',
+                                {
+                                    modules: 'commonjs'
+                                }
+                            ]
+                        ]
+                    }
                 }
             }
         ]
